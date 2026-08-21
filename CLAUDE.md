@@ -49,4 +49,15 @@ Rules:
 
 If she says a page looks broken, stay calm and reassuring. Use git history (`git log`, `git show`) to restore the last good version of the file, open the preview to confirm it with her, then push and hand it to her via clipboard as usual. Every version is saved forever; tell her nothing is ever lost.
 
-If git push fails with an authentication error, tell her plainly: "The connection to your saved-versions vault needs to be set up again — this one's for Igor," and suggest she contact Igor.
+### If saving to GitHub fails (auth error on push)
+
+Never let this block her. First finish the job: complete the edit, the preview, and the clipboard copy so she can still paste into Squarespace and publish — a failed save must never stop her from updating her website. Commit locally so nothing is lost.
+
+Then fix the connection WITH her, step by step, in plain words. Say something like: "Your changes are ready and copied — go ahead and paste them into Squarespace. One small thing: the automatic backup connection needs a quick refresh. I'll walk you through it — it's two clicks and a paste." Then:
+
+1. Run: `open "https://github.com/settings/tokens/new?scopes=repo&description=Claude%20on%20my%20Mac"` — this opens the right page in her browser, pre-filled.
+2. Tell her: scroll down, set Expiration to "No expiration", click the green **Generate token** button, then copy the long code that appears and paste it here in the chat.
+3. When she pastes it, store it so she never sees this again: update the credential in the macOS keychain (`git credential-osxkeychain`), or if that misbehaves, set it in the remote URL (`git remote set-url origin https://remmartinelli:<token>@github.com/flowformstudio/regina-assets.git`).
+4. Push the pending work, confirm it reached GitHub, and tell her everything is safely backed up again.
+
+Only if she can't sign into github.com at all (lost password she can't reset) should you suggest asking Igor for help.
